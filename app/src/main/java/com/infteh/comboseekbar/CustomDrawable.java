@@ -9,9 +9,13 @@ import android.graphics.ColorFilter;
 import android.graphics.Paint;
 import android.graphics.PixelFormat;
 import android.graphics.Rect;
+import android.graphics.Color;
+import android.graphics.RectF;
+import android.graphics.Paint.Style;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.util.TypedValue;
+import android.graphics.Path;
 
 /**
  * seekbar background with text on it.
@@ -101,21 +105,177 @@ public class CustomDrawable extends Drawable {
 
 	@Override
 	public final void draw(Canvas canvas) {
+
+
+
+
 		// Log.d("--- draw:" + (getBounds().right - getBounds().left));
 		int height = this.getIntrinsicHeight() / 2;
 		if (mDots.size() == 0) {
 			canvas.drawLine(0, height, getBounds().right, height, unselectLinePaint);
 			return;
 		}
-		for (Dot dot : mDots) {
-			drawText(canvas, dot, dot.mX, height);
-			if (dot.isSelected) {
-				canvas.drawLine(mDots.get(0).mX, height, dot.mX, height, selectLinePaint);
-				canvas.drawLine(dot.mX, height, mDots.get(mDots.size() - 1).mX, height, unselectLinePaint);
-			}
-			canvas.drawCircle(dot.mX, height, mDotRadius, circleLinePaint);
-		}
+        for (Dot dot : mDots) {
+            int pos = mDots.indexOf(dot);
+            int round = 20;
+            int semiRound = round/2;
+            int borderConfig = 0;;
+            if(mDots.indexOf(dot)==1)
+                borderConfig = 1;
+            else if(mDots.indexOf(dot)==mDots.size()-1){
+                borderConfig = 2;
+            }
+            if (dot.isSelected) {
+                //===================
+                Paint pa = new Paint(Paint.ANTI_ALIAS_FLAG);
+                pa.setStyle(Style.FILL);
+                pa.setColor(Color.parseColor("#3498db"));
+
+
+                if(pos>0){
+                    RectF rect = new RectF(mDots.get(pos-1).mX, 0, dot.mX-1, height);
+//					canvas.drawRoundRect(rect, 6, 6, pa);
+                    drawRoundedPath(canvas, dot, round, height, borderConfig, pa);
+                    //drawRoundedRectangle(canvas, dot, round, height, borderConfig, pa);
+                }
+
+
+                Paint p3 = new Paint(Paint.ANTI_ALIAS_FLAG);
+                p3.setStyle(Style.STROKE);
+                p3.setStrokeWidth(2);
+                p3.setColor(Color.GRAY);
+                canvas.drawCircle(8, height/2, 15, p3);
+
+                int x1 = 0;
+                int y1 = 11;
+                int x2 = 16;
+                int y2 = 27;
+                canvas.drawLine(x1, y1, x2, y2, p3);
+                canvas.drawLine(x1, y2, x2, y1, p3);
+
+            }else{
+                Paint p2 = new Paint(Paint.ANTI_ALIAS_FLAG);
+                p2.setStyle(Style.STROKE);
+                p2.setStrokeWidth(2);
+                p2.setColor(Color.parseColor("#3498db"));
+
+                pos = mDots.indexOf(dot);
+                if(pos>0){
+                    drawRoundedRectangle(canvas, dot, round, height, borderConfig, p2);
+                }
+            }
+            if(pos>0){
+                drawText(canvas, dot, mDots.get(pos-1).mX, height);
+            }
+            //canvas.drawCircle(dot.mX, height, mDotRadius, circleLinePaint);
+        }
 	}
+
+    private void drawRoundedPath(Canvas canvas, Dot dot, int round, int height,
+                                 int borderConfig, Paint pa) {
+
+        int semiRound = round/2;
+        int pos = mDots.indexOf(dot);
+
+        int offsetLeft = semiRound-1;
+        int offsetRight = semiRound-1;
+        if(borderConfig ==0){
+            offsetLeft = 0;
+            offsetRight = 0;
+        }else if(borderConfig==1){
+            offsetRight = 0;
+        }else if(borderConfig==2){
+            offsetLeft = 0;
+        }
+
+        int x1 = mDots.get(pos-1).mX+30;
+        int x2 = dot.mX+30;
+
+        Path p = new Path();
+
+        p.lineTo(x2-offsetLeft, 0);
+        p.lineTo(x1+offsetLeft, 0);
+        p.lineTo(x1, 0+offsetLeft);
+        p.lineTo(x1, height-offsetLeft);
+        p.lineTo(x1+offsetLeft, height+1);
+        p.lineTo(x2-offsetRight, height+1);
+        p.lineTo(x2-1, height-offsetRight);
+        p.lineTo(x2-1, 0+offsetRight);
+        p.lineTo(x2-offsetRight, 0);
+        p.close();
+        canvas.drawPath(p, pa);
+
+        final RectF oval = new RectF();
+        //borders:
+        //border leftTop
+        oval.set(x1, 0, x1+round, 0+round);
+        canvas.drawArc(oval, 180, 90, false, pa);
+        //borderLeftBottom
+        oval.set(x1, height-round, x1+round, height+1);
+        canvas.drawArc(oval, 90, 90, false, pa);
+        //border RighBottom
+        oval.set(x2-round, height-round, x2-1, height+1);
+        canvas.drawArc(oval, 1, 90, false, pa);
+        //border rightTop
+        oval.set(x2-round, 0, x2-1, 0+round);
+        canvas.drawArc(oval, 270, 90, false, pa);
+    }
+
+    private void drawRoundedRectangle(Canvas canvas, Dot dot, int round, int height, int borderConfig, Paint pa){
+
+        int semiRound = round/2;
+        int pos = mDots.indexOf(dot);
+
+        final RectF oval = new RectF();
+
+        int xLastDot = mDots.get(pos-1).mX+30;
+        int x2 = dot.mX+30;
+
+        int offsetLeft = semiRound;
+        int offsetRight = semiRound;
+
+        if(borderConfig ==0){
+            offsetLeft = 0;
+            offsetRight = 0;
+        }else if(borderConfig==1){
+            offsetRight = 0;
+        }else if(borderConfig==2){
+            offsetLeft = 0;
+        }
+
+
+        //line top
+        canvas.drawLine(xLastDot+offsetLeft, 1, x2-offsetRight-1, 1, pa);
+
+        if(borderConfig==1 || borderConfig>2){
+            //border leftTop
+            oval.set(xLastDot, 1, xLastDot+round, 0+round);
+            canvas.drawArc(oval, 180, 90, false, pa);
+            //borderLeftBottom
+            oval.set(xLastDot, height-round, xLastDot+round, height);
+            canvas.drawArc(oval, 90, 90, false, pa);
+        }
+
+        //line left
+        canvas.drawLine(xLastDot, 1+offsetLeft, xLastDot, height-offsetLeft, pa);
+
+        //line bottom
+        canvas.drawLine(xLastDot+offsetLeft, height, x2-offsetRight-1, height, pa);
+        if(borderConfig==2 || borderConfig>2){
+            //border RighBottom
+            oval.set(x2-round, height-round, x2-1, height);
+            canvas.drawArc(oval, 1, 90, false, pa);
+            //border rightTop
+            oval.set(x2-round, 1, x2-1, 0+round);
+            canvas.drawArc(oval, 270, 90, false, pa);
+        }
+
+
+        //line right
+        canvas.drawLine(x2-1, 0+offsetRight, x2-1, height-offsetRight, pa);
+
+
+    }
 
 	/**
 	 * @param canvas

@@ -42,7 +42,7 @@ bintray {
         repo = "maven"
         name = "android-comboseekbar"
         // websiteUrl = siteUrl
-        vcsUrl = "https://github.com/aat-antoine/android-comboseekbar.git"
+        vcsUrl = "https://github.com/chicofilho/android-comboseekbar.git"
         licenses = ["Apache-2.0"]
         publish = true
         version {
