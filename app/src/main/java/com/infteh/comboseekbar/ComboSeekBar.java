@@ -8,6 +8,7 @@ import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Rect;
+import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
@@ -15,11 +16,14 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.SeekBar;
+import android.widget.LinearLayout.LayoutParams;
 
 public class ComboSeekBar extends SeekBar {
 	private CustomThumbDrawable mThumb;
 	private List<Dot> mDots = new ArrayList<Dot>();
-	private OnItemClickListener mItemClickListener;
+    private List<String> texts = new ArrayList<String>();
+
+    private OnItemClickListener mItemClickListener;
 	private Dot prevSelected = null;
 	private boolean isSelected = false;
 	private int mColor;
@@ -44,6 +48,8 @@ public class ComboSeekBar extends SeekBar {
 		super(context, attrs);
 		TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.ComboSeekBar);
 
+        this.setDefaults();
+
 		mColor = a.getColor(R.styleable.ComboSeekBar_myColor, Color.WHITE);
 		mTextSize = a.getDimensionPixelSize(R.styleable.ComboSeekBar_textSize, 5);
 		mIsMultiline = a.getBoolean(R.styleable.ComboSeekBar_multiline, false);
@@ -54,11 +60,11 @@ public class ComboSeekBar extends SeekBar {
 		setThumb(mThumb);
 		setProgressDrawable(new CustomDrawable(this.getProgressDrawable(), this, mThumb.getRadius(), mDots, mColor, mTextSize, mIsMultiline));
 
-		// по умолчанию не равно 0 и это проблема
+
 		setPadding(0, 0, 0, 0);
 	}
 
-	@Override
+    @Override
 	public boolean onTouchEvent(MotionEvent event) {
 		isSelected = false;
 		return super.onTouchEvent(event);
@@ -73,6 +79,30 @@ public class ComboSeekBar extends SeekBar {
 		mThumb.setColor(color);
 		setProgressDrawable(new CustomDrawable((CustomDrawable) this.getProgressDrawable(), this, mThumb.getRadius(), mDots, color, mTextSize, mIsMultiline));
 	}
+
+    /**
+     * @param
+     *
+     */
+    public void setDefaults(){
+        this.texts.add("Sim");
+        this.texts.add("Não");
+        System.out.println("Blah!!");
+        System.out.println("---------------------------");
+        this.setAdapter(texts);
+        this.texts = texts;
+        int overalSize = 0;
+        Paint p = new Paint();
+        for (int i = 0; i < this.texts.size(); i++) {
+            final Rect textBounds = new Rect();
+            String text = this.texts.get(i);
+            int bounds =  text.length();
+            p.getTextBounds(text, 0, text.length(), textBounds);
+            overalSize = overalSize + textBounds.width()+40;
+        }
+        LayoutParams linLayoutParam = new LayoutParams(overalSize+60, 150);
+        this.setLayoutParams(linLayoutParam);
+    }
 
 	public synchronized void setSelection(int position) {
 		if ((position < 0) || (position >= mDots.size())) {
@@ -91,6 +121,7 @@ public class ComboSeekBar extends SeekBar {
 	}
 
 	public void setAdapter(List<String> dots) {
+        System.out.println(".............!............");
 		mDots.clear();
 		int index = 0;
 		for (String dotName : dots) {
