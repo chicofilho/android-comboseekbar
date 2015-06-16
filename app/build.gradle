@@ -3,7 +3,7 @@ apply plugin: 'com.jfrog.bintray'
 
 // This is the library version used when deploying the artifact
 group = 'com.aat'
-archivesBaseName = 'android-comboseekbar'  // set artifactId
+archivesBaseName = 'android-seekbar'  // set artifactId
 version = '1.0.2'
 
 android {
@@ -40,9 +40,9 @@ bintray {
     configurations = ['archives']
     pkg {
         repo = "maven"
-        name = "android-comboseekbar"
+        name = "android-seekbar"
         // websiteUrl = siteUrl
-        vcsUrl = "https://github.com/chicofilho/android-comboseekbar.git"
+        vcsUrl = "https://github.com/chicofilho/android-seekbar"
         licenses = ["Apache-2.0"]
         publish = true
         version {

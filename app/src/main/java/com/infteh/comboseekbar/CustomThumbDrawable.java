@@ -24,7 +24,7 @@ public class CustomThumbDrawable extends Drawable {
 
 	public CustomThumbDrawable(Context context, int color) {
 		mContext = context;
-		mRadius = toPix(15);
+		mRadius = toPix(0);
 		setColor(color);
 	}
 
