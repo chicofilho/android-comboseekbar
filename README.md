@@ -23,5 +23,3 @@ The goal of this project is to build an Android Widget that simulates a rectangu
 ## Suggestions
 
 I will appreciate any help to customize and enhance the library. Please, make any suggestion you find useful.
-
-Repository at <https://github.com/karabaralex/android-comboseekbar>.
