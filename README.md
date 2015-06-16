@@ -1,4 +1,4 @@
-# CustomseekBar
+# CustomSeekBar
 This is a fork of the repository: <https://github.com/karabaralex/android-comboseekbar>.
 
 The goal of this project is to build an Android Widget that simulates a rectangular picker. It has an appearance similar to iOS Menu presented in Iphones
