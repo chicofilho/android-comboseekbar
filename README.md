@@ -16,9 +16,9 @@ The goal of this project is to build an Android Widget that simulates a rectangu
 
 ## Features
 
- * This widget contains an X to cancel the value chosen, that can be suppressed
- * Although the utilization of this widget is similar to a seekBar, it will be extended, so users can use it as a Menu
- * The projects still needs modularization and some bug fixes 
+ * This widget contains an X to cancel the value chosen, it can be surpressed
+ * Although the utilization of this widget is similar to a seekBar, it will be extended to be used as a Menu as well
+ * The projects still needs several modularization and lots of bug fixes. Be patient meanwhile :) 
 
 ## Suggestions
 
