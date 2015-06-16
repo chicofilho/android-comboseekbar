@@ -12,6 +12,7 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.PorterDuff;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
@@ -37,43 +38,40 @@ public class CustomSeekBar extends SeekBar {
 
     public CustomSeekBar(Context context, List<String> texts) {
         super(context);
-        init(context, texts);
+        init(context);
     }
 
     public CustomSeekBar(Context context)
     {
         super(context);
-        List<String> s = new ArrayList<String>();
-        s.add("b");
-        s.add("a");
-        s.add("c");
-        s.add("c");
-        init(context, s);
+        init(context);
 
     }
     public CustomSeekBar(Context context, AttributeSet attrs)
     {
         super(context, attrs);
         List<String> s = new ArrayList<String>();
-        s.add("b");
-        s.add("a");
-        s.add("c");
-        s.add("c");
-        init(context, s);
+        init(context);
     }
 
     public CustomSeekBar(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         List<String> s = new ArrayList<String>();
-        s.add("b");
-        s.add("a");
-        s.add("c");
-        s.add("c");
-        init(context, s);
+        init(context);
     }
 
-    public void init(Context context, List<String> texts){
+    public void init(Context context){
         //this.setScrollBarSize(100);
+        List<String> texts = new ArrayList<String>();
+
+        texts.add("");
+        texts.add("First");
+        texts.add("Second");
+        texts.add("Third");
+//        s.add("c");
+//        s.add("c");
+
+        super.invalidate();
         List<String> seekBarStep = texts;
         this.texts = texts;
         int overalSize = 0;
@@ -115,27 +113,27 @@ public class CustomSeekBar extends SeekBar {
 
                 @Override
                 public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                int amountTotal = finalTexts.size()-1;
-                int totalG = intervalWidth*amountTotal;
-                int xWidthG = (intervalWidth/xWidth)/amountTotal;
-                int total = totalG+xWidthG;
+                    int amountTotal = finalTexts.size()-1;
+                    int totalG = intervalWidth*amountTotal;
+                    int xWidthG = (intervalWidth/xWidth)/amountTotal;
+                    int total = totalG+xWidthG;
 
-                int realProgress = (total*progress)/self.getMax();
+                    int realProgress = (total*progress)/self.getMax();
 
-                //int total = self.getMax()/(finalTexts.size()-1);
-                System.out.println("primeiro: " + intervalWidth);
-                System.out.println("progress: " + progress);
-                //int interval = progress / total;
-                //progress = interval * total;
+                    //int total = self.getMax()/(finalTexts.size()-1);
+                    System.out.println("primeiro: " + intervalWidth);
+                    System.out.println("progress: " + progress);
+                    //int interval = progress / total;
+                    //progress = interval * total;
 
-                System.out.println("progress2: " + realProgress);
-                System.out.println("progress2: " + progress);
-                System.out.println("total: "+total);
-                System.out.println("max: "+self.getMax());
-                System.out.println("size: "+finalTexts.size());
-                System.out.println("--------------------------------------");
+                    System.out.println("progress2: " + realProgress);
+                    System.out.println("progress2: " + progress);
+                    System.out.println("total: "+total);
+                    System.out.println("max: "+self.getMax());
+                    System.out.println("size: "+finalTexts.size());
+                    System.out.println("--------------------------------------");
 
-                //self.setProgress(realProgress);
+                    //self.setProgress(realProgress);
 
                 }
 
@@ -259,6 +257,7 @@ public class CustomSeekBar extends SeekBar {
 
     @Override
     protected synchronized void onDraw(Canvas canvas) {
+        super.invalidate();
         if ((mThumb != null) && (mDots.size() > 1)) {
             if (isSelected) {
                 for (Dot dot : mDots) {
@@ -326,4 +325,3 @@ public class CustomSeekBar extends SeekBar {
 
 
 }
-

@@ -348,10 +348,6 @@ public class CustomDrawable extends Drawable {
 		return 30;
 	}
 	public int getRectangleWidth(){
-		if(mDots.size()>0){
-			return Math.abs(mDots.get(2).mX-mDots.get(1).mX);
-		}else{
-			return 0;
-		}
+		return 0;
 	}
 }

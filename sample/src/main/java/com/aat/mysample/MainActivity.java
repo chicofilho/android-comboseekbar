@@ -19,11 +19,14 @@ public class MainActivity extends ActionBarActivity {
         setContentView(R.layout.main_activity);
 
 
-        CustomSeekBar t = (CustomSeekBar)this.findViewById(R.id.combo);
-        List<String> seekBarStep = Arrays.asList("2","1","5","10","20");
-        t = new CustomSeekBar(this, seekBarStep);
-        t.setLayoutParams(new ActionBar.LayoutParams(200,50));
-        t.requestLayout();
+        CustomSeekBar t = (CustomSeekBar)this.findViewById(R.id.combo1);
+        //List<String> seekBarStep = Arrays.asList("2","1","5");
+
+        //List<String> seekBarStep = Arrays.asList("2","1","5");
+
+        //t.setAdapter(seekBarStep);
+        //t.setLayoutParams(new LayoutParams(200,50));
+        //t.requestLayout();
         //CustomSeekBar cb = new CustomSeekBar(this, 2);
         //ComboSeekBar cb = (ComboSeekBar)this.findViewById(R.id.combo);
         //cb.setAdapter(seekBarStep);

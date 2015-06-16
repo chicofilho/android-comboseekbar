@@ -9,8 +9,8 @@
     tools:context=".MainActivity">
 
     <com.infteh.comboseekbar.CustomSeekBar xmlns:cbs="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/combo"
+        android:id="@+id/combo1"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="wrap_content" />
 
 </RelativeLayout>

@@ -13,7 +13,6 @@ import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.view.MotionEvent;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.LinearLayout.LayoutParams;
 import android.widget.SeekBar;
 
 
@@ -49,8 +48,8 @@ public class ComboSeekBar extends SeekBar {
 			p.getTextBounds(text, 0, text.length(), textBounds);
 			overalSize = overalSize + textBounds.width()+40;
 		}
-		LayoutParams linLayoutParam = new LayoutParams(overalSize+72, 158);
-		this.setLayoutParams(linLayoutParam);
+//		LayoutParams linLayoutParam = new LayoutParams(overalSize+72, 158);
+//		this.setLayoutParams(linLayoutParam);
 
 		//mColor = a.getColor(R.styleable.ComboSeekBar_myColor, Color.WHITE);
 		//mTextSize = a.getDimensionPixelSize(R.styleable.ComboSeekBar_textSize, 5);
