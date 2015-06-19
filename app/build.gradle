@@ -4,7 +4,7 @@ apply plugin: 'com.jfrog.bintray'
 // This is the library version used when deploying the artifact
 group = 'com.aat'
 archivesBaseName = 'android-seekbar'  // set artifactId
-version = '1.0.2'
+version = '1.0.0'
 
 android {
     compileSdkVersion 22

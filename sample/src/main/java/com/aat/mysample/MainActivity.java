@@ -5,6 +5,8 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.SeekBar;
+
 import java.util.List;
 import java.util.Arrays;
 import com.infteh.comboseekbar.ComboSeekBar;
@@ -20,17 +22,27 @@ public class MainActivity extends ActionBarActivity {
 
 
         CustomSeekBar t = (CustomSeekBar)this.findViewById(R.id.combo1);
-        //List<String> seekBarStep = Arrays.asList("2","1","5");
+        List<String> seekBarStep = Arrays.asList("First","Second","Third", "Fourth", "Fifth", "Sixth", "Seventh");
+        t.setAdapter(seekBarStep);
+        t.setOnSeekBarChangeListener(new ComboSeekBar.OnSeekBarChangeListener() {
 
-        //List<String> seekBarStep = Arrays.asList("2","1","5");
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                System.out.println("----------------------");
+                System.out.println(((CustomSeekBar) seekBar).getValue());
+            }
 
-        //t.setAdapter(seekBarStep);
-        //t.setLayoutParams(new LayoutParams(200,50));
-        //t.requestLayout();
-        //CustomSeekBar cb = new CustomSeekBar(this, 2);
-        //ComboSeekBar cb = (ComboSeekBar)this.findViewById(R.id.combo);
-        //cb.setAdapter(seekBarStep);
-        //cb.setDefaults();
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+       
 
     }
 

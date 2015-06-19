@@ -39,10 +39,10 @@ public class CustomDrawable extends Drawable {
 	private int mTextSize;
 	private float mTextMargin;
 	private int mTextHeight;
-	private boolean mIsMultiline;
+	private boolean mHasCancel;
 
-	public CustomDrawable(Drawable base, CustomSeekBar slider, float thumbRadius, List<Dot> dots, int color, int textSize, boolean isMultiline) {
-		mIsMultiline = isMultiline;
+	public CustomDrawable(Drawable base, CustomSeekBar slider, float thumbRadius, List<Dot> dots, int color, int textSize, boolean hasCancel) {
+		mHasCancel = hasCancel;
 		mySlider = slider;
 		myBase = base;
 		mDots = dots;
@@ -111,6 +111,7 @@ public class CustomDrawable extends Drawable {
 			return;
 		}
 		for (Dot dot : mDots) {
+
 			int pos = mDots.indexOf(dot);
 			int round = 15;
 //			int semiRound = round/2;
@@ -122,6 +123,7 @@ public class CustomDrawable extends Drawable {
 			}
 			if (dot.isSelected) {
 				//===================
+				//System.out.println("-------------->"+dot.id);
 				Paint pa = new Paint(Paint.ANTI_ALIAS_FLAG);
 				pa.setStyle(Style.FILL);
 				pa.setColor(Color.parseColor("#3498db"));
@@ -131,20 +133,24 @@ public class CustomDrawable extends Drawable {
 //					canvas.drawRoundRect(rect, 6, 6, pa);
 					drawRoundedPath(canvas, dot, round, height, borderConfig, pa);
 					//drawRoundedRectangle(canvas, dot, round, height, borderConfig, pa);
+
+				}
+				if(mHasCancel){
+					Paint p3 = new Paint(Paint.ANTI_ALIAS_FLAG);
+					p3.setStyle(Style.STROKE);
+					p3.setStrokeWidth(2);
+					p3.setColor(Color.parseColor("#bbbbbb"));
+					canvas.drawCircle(8, height/2, 15, p3);
+
+					int x1 = 0;
+					int y1 = height/3-1;
+					int x2 = x1+16;
+					int y2 = y1+16;
+					canvas.drawLine(x1, y1, x2, y2, p3);
+					canvas.drawLine(x1, y2, x2, y1, p3);
 				}
 
-				Paint p3 = new Paint(Paint.ANTI_ALIAS_FLAG);
-				p3.setStyle(Style.STROKE);
-				p3.setStrokeWidth(2);
-				p3.setColor(Color.parseColor("#bbbbbb"));
-				canvas.drawCircle(8, height/2, 15, p3);
 
-				int x1 = 0;
-				int y1 = height/3-1;
-				int x2 = x1+16;
-				int y2 = y1+16;
-				canvas.drawLine(x1, y1, x2, y2, p3);
-				canvas.drawLine(x1, y2, x2, y1, p3);
 
 			}else{
 				Paint p2 = new Paint(Paint.ANTI_ALIAS_FLAG);
@@ -300,20 +306,20 @@ public class CustomDrawable extends Drawable {
 			int x2 = dot.mX;
 			float size = x2-x1;//getBounds().width()/(mDots.size());
 			int offsetText = (int) Math.ceil((size-textBounds.width())/2);
-			xres = x1 + 30 + offsetText;//-textBounds.width();			
+			xres = x1 + this.getXWidth() + offsetText;//-textBounds.width();
 		}
 		mTextMargin = 0;
 		float yres;
-		if (mIsMultiline) {
-			if ((dot.id % 2) == 0) {
-				yres = y - mTextMargin - mDotRadius;
-			} else {
-				yres = y + mTextHeight;
-			}
-		} else {
+//		if (mIsMultiline) {
+//			if ((dot.id % 2) == 0) {
+//				yres = y - mTextMargin - mDotRadius;
+//			} else {
+//				yres = y + mTextHeight;
+//			}
+//		} else {
 			//float offsetY =  (float) (Math.ceil((y)/2) + textBounds.height());
 			yres = y/2+(mDotRadius*3)/2;// y - (mDotRadius * 2) + mTextMargin;
-		}
+//		}
 
 		if (dot.isSelected) {
 			canvas.drawText(dot.text, xres, yres, textSelected);
@@ -324,11 +330,11 @@ public class CustomDrawable extends Drawable {
 
 	@Override
 	public final int getIntrinsicHeight() {
-		if (mIsMultiline) {
-			return (int) (selectLinePaint.getStrokeWidth() + mDotRadius + (mTextHeight) * 2  + mTextMargin);
-		} else {
+//		if (mIsMultiline) {
+//			return (int) (selectLinePaint.getStrokeWidth() + mDotRadius + (mTextHeight) * 2  + mTextMargin);
+//		} else {
 			return (int) (mThumbRadius + mTextMargin + mTextHeight + mDotRadius);
-		}
+//		}
 	}
 
 	@Override
@@ -345,7 +351,7 @@ public class CustomDrawable extends Drawable {
 	}
 
 	public int getXWidth(){
-		return 30;
+		return 0;
 	}
 	public int getRectangleWidth(){
 		return 0;
