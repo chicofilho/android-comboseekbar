@@ -1,24 +1,23 @@
 # CustomSeekBar
 This is a fork of the repository: <https://github.com/karabaralex/android-comboseekbar>.
 
-The goal of this project is to build an Android Widget that simulates a rectangular picker. It has an appearance similar to iOS Menu presented in Iphones
+The goal of this project is to build an Android Widget that simulates a rectangular picker extending the Seekbar functionalities and using no XML file (all drawing is made by hand). It has an appearance similar to iOS Menu presented in Iphones.
 
-![Screenshot](https://raw.githubusercontent.com/chicofilho/android-seekbar/screenshots/sample/src/main/res/mipmap-hdpi/Screenshot_2015-06-16-18-40-59.png)
+![Screenshot](https://raw.githubusercontent.com/chicofilho/android-seekbar/screenshots/sample/src/main/res/mipmap-hdpi/s0.png)
 
-![Screenshot](https://raw.githubusercontent.com/chicofilho/android-seekbar/screenshots/sample/src/main/res/mipmap-hdpi/Screenshot_2015-06-16-18-41-40.png)
+![Screenshot](https://raw.githubusercontent.com/chicofilho/android-seekbar/screenshots/sample/src/main/res/mipmap-hdpi/s1.png)
 
-![Screenshot](https://raw.githubusercontent.com/chicofilho/android-seekbar/screenshots/sample/src/main/res/mipmap-hdpi/Screenshot_2015-06-16-18-42-38.png)
+![Screenshot](https://raw.githubusercontent.com/chicofilho/android-seekbar/screenshots/sample/src/main/res/mipmap-hdpi/s2.png)
 
-![Screenshot](https://raw.githubusercontent.com/chicofilho/android-seekbar/screenshots/sample/src/main/res/mipmap-hdpi/Screenshot_2015-06-16-18-42-07.png)
+![Screenshot](https://raw.githubusercontent.com/chicofilho/android-seekbar/screenshots/sample/src/main/res/mipmap-hdpi/s3.png)
 
 
 
 
 ## Features
-
- * This widget contains an X to cancel the value chosen, it can be surpressed
- * Although the utilization of this widget is similar to a seekBar, it will be extended to be used as a Menu as well
- * The project still needs several modularization and lots of bug fixes. Be patient meanwhile :) 
+ * Set the adapter and change the texts and values presented in the Seekbar. There is a Sample code to help you with it
+ * Although the utilization of this widget is similar to a seekBar, it can be extended to be used as a Menu as well
+ * The project still needs several modularization and lots of bug fixes. Feel free to propose changes and enhancements :) 
 
 ## Suggestions
 
